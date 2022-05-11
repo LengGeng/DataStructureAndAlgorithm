@@ -139,8 +139,8 @@ void computedSuffix(const char *suffix_str, float *result) {
             if (token == '+' || token == '-' ||
                 token == '*' || token == '/') {
                 // 弹出栈顶两个数据
-                StackPop(stack, &a);
                 StackPop(stack, &b);
+                StackPop(stack, &a);
                 // 计算
                 switch (token) { // NOLINT(hicpp-multiway-paths-covered)
                     case '+':
