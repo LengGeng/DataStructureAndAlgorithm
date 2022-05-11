@@ -52,9 +52,11 @@ void InfixToSuffix(const char *infix_str, char *suffix_str) {
                 }
                 // + - 符号的情况
             } else if (token == '+' || token == '-') {
+                // 反复弹出栈顶操作符添加到后缀末尾, 直到栈顶的操作符优先级低于它。
                 while (true) {
                     flag = StackPop(stack, &c);
-                    if (flag && (c == '*' || c == '/')) {
+                    // 只有 `(` 的优先级比 `+-` 低, 即不为 `（` 就一直添加到后缀末尾
+                    if (flag && c != '(') {
                         suffix_str[suffix_index++] = c;
                     } else {
                         break;
@@ -67,6 +69,20 @@ void InfixToSuffix(const char *infix_str, char *suffix_str) {
                 StackPush(stack, &token, &stack_index);
                 // * / 符号的情况
             } else if (token == '*' || token == '/') {
+                // 反复弹出栈顶操作符添加到后缀末尾, 直到栈顶的操作符优先级低于它。
+                while (true) {
+                    flag = StackPop(stack, &c);
+                    // 只有 `*/` 的优先级大于等于 `*/`, 即只有 `*/` 时才会添加到后缀末尾
+                    if (flag && (c == '*' || c == '/')) {
+                        suffix_str[suffix_index++] = c;
+                    } else {
+                        break;
+                    }
+                }
+                // 如果弹出了值就再压回去
+                if (flag) {
+                    StackPush(stack, &c, &stack_index);
+                }
                 StackPush(stack, &token, &stack_index);
                 // 非法字符
             } else {
