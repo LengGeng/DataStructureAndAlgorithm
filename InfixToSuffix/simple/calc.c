@@ -120,8 +120,8 @@ void computedSuffix(char *suffix_str, float *result) {
         } else if (suffix_str[suffix_index] == '+' || suffix_str[suffix_index] == '-' ||
                    suffix_str[suffix_index] == '*' || suffix_str[suffix_index] == '/') {
             // 取栈顶两个值
-            StackFloatPop(stack, &a);
             StackFloatPop(stack, &b);
+            StackFloatPop(stack, &a);
             // 计算
             switch (suffix_str[suffix_index]) {
                 case '+':
