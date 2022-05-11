@@ -45,8 +45,8 @@ void testStack() {
 
 void testInfixToSuffix() {
     float result;
-    char infix_str[] = "2*2+5*(6+7)";
-    char suffix_str[100];
+    char infix_str[] = "2*2-3+5*((6+7)/4)";
+    char suffix_str[100]; // 22*3-567+4/*+
     InfixToSuffix(infix_str, suffix_str);
     printf("Infix is: %s\n", infix_str);
     printf("Suffix is: %s\n", suffix_str);
